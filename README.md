@@ -64,4 +64,16 @@ reaction_videos = fetch_videos_data("reaction")
 vlog_videos = fetch_videos_data("vlog")
 
 # Combine the data
-all_videos = challenge_videos + reaction_videos + vlog_videos
+all_videos = challenge_videos + reaction_videos + vlog_videos```
+
+## Dataset Overview:
+The dataset compiled from YouTube features a selection of videos filtered by the top-performing keywords "challenge," "reaction," and "vlog." These keywords are chosen due to their widespread popularity and potential for high user engagement, which makes them particularly relevant for studying trends and success factors in video content.
+
+### Fields Included:
+- **Title**: The title of the video. This field is crucial as it allows us to analyze the impact of keywords and title length on the video's performance.
+- **View Count**: The number of times the video has been viewed. This metric serves as a primary indicator of the video's popularity and reach.
+- **Like Count**: The number of likes a video has received. It is a direct measure of viewer engagement and approval.
+- **Keyword**: The search keyword used to find this video. This field helps categorize the data based on the type of content and allows for segmented analysis.
+- **Published At**: The publication date of the video. This information is useful for understanding trends over time and the lifecycle of video popularity.
+
+

@@ -246,3 +246,55 @@ ORDER BY engagement_rate DESC;
 
 #### Key Takeaways
 Vlogs, though less viewed, engage their audience most effectively, suggesting a high quality of interaction. Challenges, while popular, could potentially increase their interactive engagement strategies to match their high viewership.
+
+### 5. Seasonal Trends Analysis
+
+#### Question
+Is there a seasonal pattern in video views or likes for different keywords?
+
+#### Objective
+Identify any seasonal effects on video performance. This analysis can inform the best times to release certain types of content.
+
+#### Query
+```sql
+SELECT 
+    keyword,
+    CASE 
+        WHEN month IN (3, 4, 5) THEN 'Spring'
+        WHEN month IN (6, 7, 8) THEN 'Summer'
+        WHEN month IN (9, 10, 11) THEN 'Fall'
+        WHEN month IN (12, 1, 2) THEN 'Winter'
+    END AS season,
+    SUM(view_count) AS total_views,
+    SUM(like_count) AS total_likes
+FROM youtube_data
+GROUP BY keyword, season
+ORDER BY keyword, season;
+```
+
+#### Results
+
+| Keyword   | Season | Total Views | Total Likes |
+|-----------|--------|-------------|-------------|
+| Challenge | Fall   | 251,831,762 | 4,712,911   |
+| Challenge | Spring | 618,385,992 | 12,762,597  |
+| Challenge | Summer | 75,362,433  | 1,046,026   |
+| Challenge | Winter | 558,915,118 | 11,934,076  |
+| Reaction  | Fall   | 63,778,234  | 1,854,092.5 |
+| Reaction  | Spring | 145,133,479 | 3,973,115   |
+| Reaction  | Summer | 79,848,350  | 5,082,396   |
+| Reaction  | Winter | 14,461,376  | 707,243     |
+| Vlog      | Fall   | 63,768,384  | 4,243,748   |
+| Vlog      | Spring | 29,794,939  | 1,083,255   |
+| Vlog      | Summer | 120,290,398 | 2,877,668   |
+| Vlog      | Winter | 2,652,941   | 160,613     |
+
+#### Insights
+- **Challenge Videos**: Show the highest engagement during Spring with approximately 618 million views and 12.8 million likes. Winter also sees high engagement, closely following Spring. Fall and Summer have lower engagement, with Summer being the least engaged.
+- **Reaction Videos**: Peak during Summer with about 80 million views and 5.1 million likes. Spring follows with strong engagement, whereas Fall and Winter see less interaction.
+- **Vlog Videos**: Summer is the top season, with the highest views (120 million) and likes (2.88 million). Fall also shows strong engagement. Spring and Winter experience less engagement, with Winter having the lowest.
+
+#### Key Takeaways
+- **Challenge Videos**: Perform best in Spring and Winter, suggesting seasonal planning around these times could maximize viewer engagement.
+- **Reaction Videos**: Peak in Summer, which may be due to increased leisure time allowing viewers to engage more with entertainment content.
+- **Vlog Videos**: Show significant interaction in Summer, indicating that seasonal activities and travels could boost viewer interest in lifestyle content during this time.

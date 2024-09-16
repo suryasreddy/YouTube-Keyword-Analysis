@@ -1,12 +1,12 @@
 # Unlocking YouTube Success: Analyzing the Impact of Title Keywords and Length on Video Performance
 
 ## Introduction
-### Background and Problem Statement:
+### Background and Problem Statement
 YouTube has evolved into one of the most influential platforms for content creation, where videos from a vast range of genres can reach millions of viewers worldwide. As a long-time YouTube viewer, I've witnessed how certain trends and content styles gain viral traction, often driven by compelling video titles and thumbnails. This personal experience has sparked my curiosity about what makes a YouTube video successful, particularly the role that video titles play in attracting viewers.
 
 In this project, I aim to explore the relationship between YouTube title keywords, title lengths, and video performance. Specifically, I will analyze how certain keywords might correlate with higher view counts and likes, and whether the length of a title influences engagement. Understanding these patterns could provide valuable insights for content creators looking to optimize their titles to attract more viewers. My ultimate goal is to not only uncover actionable data but also to apply these insights toward potentially starting my own YouTube channel in the future.
 
-### Tools Used:
+### Tools Used
 - **Python**: Youtube Data Scraping
 - **Excel**: Data Cleaning
 - **SQLite**: Advanced Queries for Data Analysis 
@@ -67,14 +67,23 @@ vlog_videos = fetch_videos_data("vlog")
 all_videos = challenge_videos + reaction_videos + vlog_videos
 ```
 
-## Dataset Overview:
+## Dataset Overview
 The dataset compiled from YouTube features a selection of videos filtered by the top-performing keywords "challenge," "reaction," and "vlog." These keywords are chosen due to their widespread popularity and potential for high user engagement, which makes them particularly relevant for studying trends and success factors in video content.
 
-### Fields Included:
+### Fields Included
 - **Title**: The title of the video. This field is crucial as it allows us to analyze the impact of keywords and title length on the video's performance.
 - **View Count**: The number of times the video has been viewed. This metric serves as a primary indicator of the video's popularity and reach.
 - **Like Count**: The number of likes a video has received. It is a direct measure of viewer engagement and approval.
 - **Keyword**: The search keyword used to find this video. This field helps categorize the data based on the type of content and allows for segmented analysis.
 - **Published At**: The publication date of the video. This information is useful for understanding trends over time and the lifecycle of video popularity.
 
+The objective of analyzing these fields is to uncover actionable insights into what makes a YouTube video successful. By focusing on how specific title keywords and their lengths influence views and likes, we can derive strategies that content creators might use to optimize their video titles to maximize viewer engagement. Moreover, examining the publication date allows us to explore whether the timing of video releases impacts performance. This analysis will not only enhance our understanding of content strategy on YouTube but also inform potential approaches for those looking to launch or optimize their own YouTube channels. The ultimate goal is to leverage these insights to craft content that resonates with audiences and performs well in terms of both visibility and engagement on the platform.
 
+## Data Cleaning
+In preparing the YouTube dataset for analysis, several crucial data cleaning steps were undertaken in Excel to ensure accuracy and usability. Initially, the viewCount, likeCount, and publishedAt columns were converted from text format to numeric values to facilitate numerical operations and analyses. This conversion was essential for accurate calculations and comparisons across data points.
+
+Additionally, for enhanced readability and ease of use, the column titles were simplified: view_count was renamed to views, like_count to likes, and published_at to year. The year column initially contained full timestamps (e.g., "2022-09-13T19:00:17Z"). I decided to split this into two columns containing “month” and “year” respectively. This simplification was made by extracting the month and year from each timestamp, allowing for a more focused analysis of annual trends and removing unnecessary details like time, which were not pertinent to the scope of this analysis. (=LEFT(C2, 4)) These adjustments made the dataset more manageable and tailored for examining trends over the years, setting the stage for a clear and structured analysis.
+### Missing Values
+During the cleaning process, it was noted that there were three missing values in the likeCount column. To address this, the median like count from each video category—challenges, vlogs, and reactions—was calculated. (Ex: =MEDIAN(C2:C51)) Each missing value was then replaced with the respective category's median to maintain consistency and reliability in the dataset without skewing the data distribution.
+
+## Data Analysis

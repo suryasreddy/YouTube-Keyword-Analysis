@@ -87,3 +87,32 @@ Additionally, for enhanced readability and ease of use, the column titles were s
 During the cleaning process, it was noted that there were three missing values in the likeCount column. To address this, the median like count from each video category—challenges, vlogs, and reactions—was calculated. (Ex: =MEDIAN(C2:C51)) Each missing value was then replaced with the respective category's median to maintain consistency and reliability in the dataset without skewing the data distribution.
 
 ## Data Analysis
+
+### 1. Keyword Performance Analysis
+
+#### Question
+How do different keywords (challenge, reaction, vlog) correlate with average views and likes?
+
+#### Objective
+Identify which keywords are currently more effective at driving higher engagement and viewership. This analysis can help understand which content genres are resonating with the audience.
+
+#### Query
+```sql
+SELECT keyword, 
+       ROUND(AVG(view_count)) AS avg_views, 
+       ROUND(AVG(like_count)) AS avg_likes
+FROM youtube_data
+GROUP BY keyword
+ORDER BY avg_views DESC, avg_likes DESC;
+```
+
+#### Query Result
+
+| Keyword   | Avg Views | Avg Likes |
+|-----------|-----------|-----------|
+| challenge | 30,089,906| 609,112   |
+| reaction  | 6,064,429 | 232,337   |
+| vlog      | 4,330,133 | 167,306   |
+
+#### Insights
+Challenge videos dominate in both viewer engagement and popularity, averaging 30 million views and over 609,000 likes, significantly outperforming other categories. Reaction videos, while also popular, attract a far smaller audience with an average of 6 million views and approximately 232,000 likes. Vlogs are the least engaging, with around 4.3 million views and 167,000 likes, suggesting a more niche appeal compared to the widespread interest in challenge videos.

@@ -64,7 +64,8 @@ reaction_videos = fetch_videos_data("reaction")
 vlog_videos = fetch_videos_data("vlog")
 
 # Combine the data
-all_videos = challenge_videos + reaction_videos + vlog_videos```
+all_videos = challenge_videos + reaction_videos + vlog_videos
+```
 
 ## Dataset Overview:
 The dataset compiled from YouTube features a selection of videos filtered by the top-performing keywords "challenge," "reaction," and "vlog." These keywords are chosen due to their widespread popularity and potential for high user engagement, which makes them particularly relevant for studying trends and success factors in video content.

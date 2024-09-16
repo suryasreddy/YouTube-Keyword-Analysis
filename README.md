@@ -11,3 +11,57 @@ In this project, I aim to explore the relationship between YouTube title keyword
 - **Excel**: Data Cleaning
 - **SQLite**: Advanced Queries for Data Analysis 
 - **Tableau**: Building Dashboard
+
+## Web Scraping
+I used Python and the YouTube Data API to scrape video metadata, specifically focusing on keywords like "challenge," "reaction," and "vlog." These three genres are among the most popular on YouTube, making them ideal for analyzing title keyword effectiveness. The googleapiclient.discovery library was utilized to interact with the YouTube API, allowing me to pull essential data such as video titles, view counts, like counts, and publication dates. I built a custom function to retrieve video details by making two API calls: one to search for videos using specific keywords, and another to fetch detailed statistics for those videos. The process included gathering video IDs from the search results and then fetching the full details (title, views, likes, and dates) for each video in batches of 50. By compiling this data into a structured format using pandas, I was able to efficiently export it into Excel for further analysis. This approach ensured I collected relevant and up-to-date data directly from YouTube, forming the foundation for my analysis on title keywords and performance.
+
+Below is the Python function used for scraping video data from YouTube using the YouTube Data API. This function searches for videos based on specified keywords, fetches video details, and aggregates them into a list that includes the video title, view count, like count, keyword, and published date.
+
+```python
+def fetch_videos_data(keyword):
+    # Search for videos with the given keyword
+    search_request = youtube.search().list(
+        part="snippet",
+        q=keyword,
+        type="video",
+        maxResults=50  # Fetch top 50 videos
+    )
+
+    search_response = search_request.execute()
+
+    # Collect video IDs
+    video_ids = [item['id']['videoId'] for item in search_response['items']]
+
+    # Fetch video details
+    videos_request = youtube.videos().list(
+        part="snippet,statistics",
+        id=",".join(video_ids)
+    )
+
+    videos_response = videos_request.execute()
+
+    # Extract required data
+    videos_data = []
+    for item in videos_response['items']:
+        title = item['snippet']['title']  # Get video title
+        view_count = item['statistics'].get('viewCount', 0) # Get the view count
+        like_count = item['statistics'].get('likeCount', 0) # Get the like count
+        published_at = item['snippet']['publishedAt']  # Get the published date
+
+        videos_data.append([
+            title,
+            view_count,
+            like_count,
+            keyword,  
+            published_at  
+        ])
+
+    return videos_data
+
+# Fetch top 50 videos for "challenge," "reaction," and "vlog"
+challenge_videos = fetch_videos_data("challenge")
+reaction_videos = fetch_videos_data("reaction")
+vlog_videos = fetch_videos_data("vlog")
+
+# Combine the data
+all_videos = challenge_videos + reaction_videos + vlog_videos

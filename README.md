@@ -106,7 +106,7 @@ GROUP BY keyword
 ORDER BY avg_views DESC, avg_likes DESC;
 ```
 
-#### Query Result
+#### Result
 
 | Keyword   | Avg Views | Avg Likes |
 |-----------|-----------|-----------|
@@ -116,3 +116,45 @@ ORDER BY avg_views DESC, avg_likes DESC;
 
 #### Insights
 Challenge videos dominate in both viewer engagement and popularity, averaging 30 million views and over 609,000 likes, significantly outperforming other categories. Reaction videos, while also popular, attract a far smaller audience with an average of 6 million views and approximately 232,000 likes. Vlogs are the least engaging, with around 4.3 million views and 167,000 likes, suggesting a more niche appeal compared to the widespread interest in challenge videos.
+
+### 2. Title Length Impact
+
+#### Question
+What is the relationship between title length and video performance metrics (views and likes)?
+
+#### Objective
+Determine if shorter or longer titles have a significant impact on video performance. This can guide content creators on optimal title lengths for maximizing engagement.
+
+#### Analysis Method
+To address the question, I categorized title lengths into three groups: Short, Medium, and Long. Within our dataset, title lengths ranged from 12 to 99 characters. The categories were defined as follows:
+- **Short**: 12-40 characters
+- **Medium**: 41-70 characters
+- **Long**: 71-99 characters
+
+#### Query
+```sql
+SELECT 
+    CASE 
+        WHEN LENGTH(title) BETWEEN 0 AND 41 THEN 'Short'
+        WHEN LENGTH(title) BETWEEN 42 AND 70 THEN 'Medium'
+        WHEN LENGTH(title) >= 71 THEN 'Long'
+    END AS title_length,
+    ROUND(AVG(view_count)) AS avg_views,
+    ROUND(AVG(like_count)) AS avg_likes
+FROM youtube_data
+GROUP BY title_length;
+```
+
+#### Query Result
+
+| Title Length | Avg Views  | Avg Likes |
+|--------------|------------|-----------|
+| Long         | 10,575,263 | 266,038   |
+| Medium       | 8,609,431  | 202,251   |
+| Short        | 26,850,825 | 689,060   |
+
+#### Insights
+The distribution of video performance by title length reveals that:
+- **Short titles** (0-41 characters) significantly outperform the other categories, achieving an average of approximately 26,850,825 views and 689,060 likes. This suggests a strong viewer preference for concise titles.
+- **Medium-length titles** (42-70 characters) garner around 8,609,431 views and 202,251 likes, indicating moderate success.
+- **Long titles** (>71 characters) show lower but still substantial engagement, with about 10,575,263 views and 266,038 likes, demonstrating that while lengthier titles attract fewer viewers on average, they still maintain a solid base of engagement.

@@ -211,3 +211,38 @@ ORDER BY year_group;
 
 #### Key Takeaways
 While challenge videos are gaining traction, reaction videos and vlogs are witnessing a decline, indicating shifts in viewer preferences on YouTube. These insights can guide content strategies, suggesting a focus on challenge-themed content for potential growth.
+
+### 4. Engagement Rate Analysis
+
+#### Question
+What is the engagement rate (likes/views ratio) for each keyword, and how does it vary?
+
+#### Objective
+Assess which types of videos not only attract views but also engage users to interact by liking. High engagement rates are crucial for channel growth.
+
+#### Query
+```sql
+SELECT keyword, 
+       SUM(view_count) AS total_views, 
+       SUM(like_count) AS total_likes, 
+       ROUND((SUM(like_count) * 100.0 / SUM(view_count)), 2) AS engagement_rate
+FROM youtube_data
+GROUP BY keyword
+ORDER BY engagement_rate DESC;
+```
+
+#### Results
+
+| Keyword   | Total Views  | Total Likes | Engagement Rate (%) |
+|-----------|--------------|-------------|---------------------|
+| Vlog      | 216,506,662  | 8,365,284   | 3.86                |
+| Reaction  | 303,221,439  | 11,616,846.5| 3.83                |
+| Challenge | 1,504,495,305| 30,455,610  | 2.02                |
+
+#### Insights
+- **Challenge Videos**: Although they have the highest total views (1,504,495,305) and likes (30,455,610), they exhibit the lowest engagement rate at 2.02%. This suggests that while challenge videos are extensively viewed, they generate relatively fewer likes per view.
+- **Reaction Videos**: They attract a considerable number of views (303,221,439) and likes (11,616,846.5), achieving an engagement rate of 3.83%. This rate is slightly below that of vlogs, indicating moderate viewer interaction relative to their viewership.
+- **Vlog Videos**: Despite having fewer total views (216,506,662) compared to reaction videos, vlogs have the highest engagement rate at 3.86%. This indicates that vlogs, while attracting fewer views, tend to engage viewers more effectively, leading to a higher proportion of likes per view.
+
+#### Key Takeaways
+Vlogs, though less viewed, engage their audience most effectively, suggesting a high quality of interaction. Challenges, while popular, could potentially increase their interactive engagement strategies to match their high viewership.

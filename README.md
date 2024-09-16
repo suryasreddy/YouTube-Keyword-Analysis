@@ -145,7 +145,7 @@ FROM youtube_data
 GROUP BY title_length;
 ```
 
-#### Query Result
+#### Result
 
 | Title Length | Avg Views  | Avg Likes |
 |--------------|------------|-----------|
@@ -158,3 +158,56 @@ The distribution of video performance by title length reveals that:
 - **Short titles** (0-41 characters) significantly outperform the other categories, achieving an average of approximately 26,850,825 views and 689,060 likes. This suggests a strong viewer preference for concise titles.
 - **Medium-length titles** (42-70 characters) garner around 8,609,431 views and 202,251 likes, indicating moderate success.
 - **Long titles** (>71 characters) show lower but still substantial engagement, with about 10,575,263 views and 266,038 likes, demonstrating that while lengthier titles attract fewer viewers on average, they still maintain a solid base of engagement.
+
+### 3. Trend Analysis Over Time
+
+#### Question
+How has the popularity of the keywords changed over the years?
+
+#### Objective
+Analyze trends over time to see if the popularity of these video types is increasing, decreasing, or remains stable. This analysis can help in predicting future trends and planning content accordingly.
+
+#### Example Query for "Challenge" Keyword
+```sql
+SELECT 
+    'challenge' AS keyword,
+    CASE 
+        WHEN year = 2024 THEN '2024'
+        WHEN year = 2023 THEN '2023'
+        ELSE '2022 and before'
+    END AS year_group,
+    ROUND(AVG(view_count)) AS average_views,
+    ROUND(AVG(like_count)) AS average_likes
+FROM youtube_data
+WHERE keyword = 'challenge'
+GROUP BY year_group
+ORDER BY year_group;
+```
+
+#### Results
+
+| Keyword    | Year Group      | Average Views | Average Likes |
+|------------|-----------------|---------------|---------------|
+| Challenge  | 2022 and before | 29,330,295    | 404,523       |
+| Challenge  | 2023            | 13,049,976    | 171,595       |
+| Challenge  | 2024            | 41,416,886    | 1,017,726     |
+
+| Keyword   | Year Group      | Average Views | Average Likes |
+|-----------|-----------------|---------------|---------------|
+| Reaction  | 2022 and before | 11,727,306    | 573,591       |
+| Reaction  | 2023            | 14,970,773    | 273,677       |
+| Reaction  | 2024            | 1,316,137     | 94,808        |
+
+| Keyword   | Year Group      | Average Views | Average Likes |
+|-----------|-----------------|---------------|---------------|
+| Vlog      | 2022 and before | 11,202,682    | 264,382       |
+| Vlog      | 2023            | 4,107,526     | 299,157       |
+| Vlog      | 2024            | 2,016,390     | 105,093       |
+
+#### Insights
+- **Challenge Videos**: Show a growing trend in popularity, peaking at 41.4 million views in 2024 after a slight dip in 2023. Likes also surged to over 1 million in 2024, indicating robust engagement.
+- **Reaction Videos**: Experienced an initial rise in views through 2023 but saw a drastic decline in 2024, with a corresponding decrease in likes, suggesting a significant fall in popularity.
+- **Vlog Videos**: Display a consistent downward trend, with views and likes steadily decreasing each year, culminating in only 2.0 million views in 2024, reflecting decreased viewer interest.
+
+#### Key Takeaways
+While challenge videos are gaining traction, reaction videos and vlogs are witnessing a decline, indicating shifts in viewer preferences on YouTube. These insights can guide content strategies, suggesting a focus on challenge-themed content for potential growth.
